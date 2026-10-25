@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ta" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Kavasam | சைபர் கவசம் - Citizen Scam Detection Assistant</title>
+  <meta name="description" content="AI & Rule-based Scam Message Checker for Tamil, Tanglish, and English SMS & WhatsApp messages. Verify suspicious fraud messages and protect yourself.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="site-wrapper">
+    <!-- Header -->
+    <header class="app-header" role="banner">
+      <div class="header-container">
+        <div class="logo-group">
+          <div class="shield-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <h1 class="brand-title">
+              <span class="en-brand">Cyber Kavasam</span>
+              <span class="ta-brand">சைபர் கவசம்</span>
+            </h1>
+            <p class="brand-tagline" data-i18n="tagline">Citizen Scam Detection & Reporting Assistant</p>
+          </div>
+        </div>
+
+        <div class="header-controls">
+          <!-- Language Toggle -->
+          <div class="lang-switcher" role="group" aria-label="Language selection">
+            <button id="lang-ta-btn" class="lang-btn active" type="button" aria-pressed="true">தமிழ்</button>
+            <button id="lang-en-btn" class="lang-btn" type="button" aria-pressed="false">English</button>
+          </div>
+
+          <!-- Theme Toggle -->
+          <button id="theme-toggle-btn" class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">
+            <span class="theme-icon light-icon" aria-hidden="true">☀️</span>
+            <span class="theme-icon dark-icon" aria-hidden="true">🌙</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="main-content" role="main">
+      <div class="content-container grid-layout">
+        
+        <!-- Left Column: Input Form -->
+        <section class="scanner-card input-section" aria-labelledby="input-heading">
+          <div class="section-header">
+            <h2 id="input-heading" data-i18n="inputTitle">செய்தியைச் சரிபார்க்கவும் (Check Message)</h2>
+            <p class="section-desc" data-i18n="inputDesc">
+              உங்களுக்கு வந்த SMS அல்லது WhatsApp செய்தியை கீழே ஒட்டி, அது மோசடியா என்பதை உடனடியாக அறிந்து கொள்ளுங்கள்.
+            </p>
+          </div>
+
+          <form id="check-form" novalidate>
+            <div class="form-group">
+              <div class="label-row">
+                <label for="message-input" data-i18n="inputLabel">செய்தியை இங்கே ஒட்டவும் (Paste message here):</label>
+                <span id="char-counter" class="char-counter" aria-live="polite">0 / 2000</span>
+              </div>
+              <textarea 
+                id="message-input" 
+                name="message" 
+                rows="6" 
+                maxlength="2000" 
+                placeholder="எ.கா: Dear customer, unga bank account block aagum. KYC update panna link click pannunga..." 
+                required
+                aria-describedby="char-counter"
+              ></textarea>
+            </div>
+
+            <div class="example-chips-wrapper">
+              <span class="chips-label" data-i18n="chipsLabel">உதாரண செய்திகள் (Examples):</span>
+              <div class="chips-list" role="list">
+                <button type="button" class="chip-btn" data-type="kyc" data-i18n="chipKyc">⚠️ வங்கி KYC முடக்கம்</button>
+                <button type="button" class="chip-btn" data-type="eb" data-i18n="chipEb">⚡ TNEB மின் துண்டிப்பு</button>
+                <button type="button" class="chip-btn" data-type="arrest" data-i18n="chipArrest">🚨 டிஜிட்டல் கைது</button>
+                <button type="button" class="chip-btn" data-type="job" data-i18n="chipJob">💼 யூடியூப் வேலை</button>
+                <button type="button" class="chip-btn" data-type="safe_otp" data-i18n="chipSafeOtp">✅ உண்மையான OTP</button>
+                <button type="button" class="chip-btn" data-type="safe_chat" data-i18n="chipSafeChat">✅ இயல்பான உரையாடல்</button>
+              </div>
+            </div>
+
+            <div class="actions-row">
+              <button type="submit" id="submit-btn" class="btn btn-primary">
+                <span class="btn-spinner" aria-hidden="true"></span>
+                <span class="btn-text" data-i18n="btnCheck">சரிபார்க்கவும் (Check Now)</span>
+              </button>
+              <button type="button" id="clear-btn" class="btn btn-secondary" data-i18n="btnClear">அழிக்கவும் (Clear)</button>
+            </div>
+          </form>
+
+          <!-- Always Visible Report Card -->
+          <div class="report-box" role="complementary" aria-labelledby="report-heading">
+            <div class="report-header">
+              <div class="report-icon" aria-hidden="true">📞</div>
+              <div>
+                <h3 id="report-heading" data-i18n="reportTitle">பாதிக்கப்பட்டவரா? உடனடியாக புகார் அளியுங்கள்</h3>
+                <p data-i18n="reportSubtitle">சைபர் கிரைம் உதவி எண் & மத்திய அரசு போர்ட்டல்கள்</p>
+              </div>
+            </div>
+            <div class="helpline-action">
+              <a href="tel:1930" class="btn btn-helpline" aria-label="Call National Cyber Crime Helpline 1930">
+                <span aria-hidden="true">🚨</span> <strong data-i18n="btn1930">1930 உதவி எண் அழைக்கவும் (Toll-Free)</strong>
+              </a>
+            </div>
+            <div class="official-links">
+              <a href="https://cybercrime.gov.in" target="_blank" rel="noopener noreferrer" class="ext-link">
+                🌐 cybercrime.gov.in ↗
+              </a>
+              <a href="https://sancharsaathi.gov.in" target="_blank" rel="noopener noreferrer" class="ext-link">
+                🛡️ Chakshu Portal ↗
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Right Column: Results & Action Card -->
+        <section class="scanner-card result-section" aria-labelledby="result-heading" aria-live="polite" id="result-container">
+          <div class="section-header">
+            <h2 id="result-heading" data-i18n="resultTitle">ஆய்வு முடிவுகள் (Analysis Result)</h2>
+            <div id="lang-badge" class="badge-lang" style="display: none;"></div>
+          </div>
+
+          <!-- Empty State Placeholder -->
+          <div id="empty-state" class="empty-state">
+            <div class="empty-icon" aria-hidden="true">🛡️</div>
+            <h3 data-i18n="emptyTitle">செய்தியைச் சரிபார்க்க தயார்</h3>
+            <p data-i18n="emptyDesc">இடதுபுறத்தில் ஒரு செய்தியை ஒட்டி "சரிபார்க்கவும்" பொத்தானை அழுத்தவும். AI மற்றும் பாதுகாப்பு விதிகளின்படி பகுப்பாய்வு செய்து தீர்ப்பு வழங்கப்படும்.</p>
+          </div>
+
+          <!-- Live Result Container (Hidden initially) -->
+          <div id="active-results" class="active-results" style="display: none;">
+            
+            <!-- Verdict Banner -->
+            <div id="verdict-banner" class="verdict-banner">
+              <div class="verdict-icon" id="verdict-icon" aria-hidden="true"></div>
+              <div class="verdict-info">
+                <span class="verdict-label-small" data-i18n="verdictLabel">இறுதித் தீர்ப்பு:</span>
+                <h3 id="verdict-text" class="verdict-text"></h3>
+              </div>
+            </div>
+
+            <!-- Risk Gauge & Confidence Grid -->
+            <div class="metrics-grid">
+              <!-- Gauge Card -->
+              <div class="metric-card risk-meter-card">
+                <div class="metric-header">
+                  <span class="metric-title" data-i18n="riskScore">மோசடி ஆபத்து அளவு (Risk)</span>
+                  <span id="risk-pct" class="metric-val">0%</span>
+                </div>
+                <!-- 3-zone visual risk bar with marker -->
+                <div class="risk-bar-track" aria-hidden="true">
+                  <div class="zone zone-safe" title="பாதுகாப்பானது (0-30%)"></div>
+                  <div class="zone zone-suspicious" title="சந்தேகத்திற்குரியது (30-55%)"></div>
+                  <div class="zone zone-scam" title="மோசடி (55-100%)"></div>
+                  <div id="risk-needle" class="risk-needle" style="left: 0%;"></div>
+                </div>
+                <div class="gauge-labels" aria-hidden="true">
+                  <span data-i18n="zoneSafe">பாதுகாப்பானது</span>
+                  <span data-i18n="zoneSuspicious">சந்தேகம்</span>
+                  <span data-i18n="zoneScam">மோசடி</span>
+                </div>
+              </div>
+
+              <!-- Confidence Card -->
+              <div class="metric-card conf-card">
+                <span class="metric-title" data-i18n="confScore">நம்பகத்தன்மை (Confidence)</span>
+                <span id="conf-pct" class="metric-val">0%</span>
+                <span class="metric-hint" data-i18n="confHint">விதிகள் + AI ஒருங்கிணைப்பு</span>
+              </div>
+            </div>
+
+            <!-- Highlighted Message Box -->
+            <div class="message-highlight-card">
+              <h4 class="card-subtitle" data-i18n="highlightTitle">கண்டறியப்பட்ட சந்தேக கூறுகள் (Highlighted Phrases):</h4>
+              <div id="highlighted-content" class="highlighted-content"></div>
+            </div>
+
+            <!-- Reasons List -->
+            <div class="reasons-card">
+              <h4 class="card-subtitle" data-i18n="reasonsTitle">காரணங்கள் (Why we flagged this):</h4>
+              <ul id="reasons-list" class="reasons-list"></ul>
+            </div>
+
+            <!-- Advice & Action Checklist -->
+            <div class="advice-card">
+              <h4 class="card-subtitle" data-i18n="adviceTitle">அடுத்து நீங்கள் என்ன செய்ய வேண்டும்? (Next Steps):</h4>
+              <ul id="advice-list" class="advice-list"></ul>
+            </div>
+
+            <!-- Copy Complaint Draft Action -->
+            <div class="complaint-action-box">
+              <button type="button" id="copy-draft-btn" class="btn btn-outline">
+                <span aria-hidden="true">📋</span> <span data-i18n="btnCopyDraft">புகார் வரைவை நகலெடு (Copy Complaint Draft)</span>
+              </button>
+              <span id="copy-toast" class="copy-toast" aria-live="polite"></span>
+            </div>
+
+            <!-- Feedback Component -->
+            <div class="feedback-card" id="feedback-widget">
+              <span class="feedback-prompt" data-i18n="feedbackPrompt">இந்த முடிவு உங்களுக்கு உதவியதா?</span>
+              <div class="feedback-buttons">
+                <button type="button" id="fb-yes-btn" class="fb-btn fb-yes" aria-label="Yes, helpful">👍 <span data-i18n="yes">ஆம்</span></button>
+                <button type="button" id="fb-no-btn" class="fb-btn fb-no" aria-label="No, inaccurate">👎 <span data-i18n="no">இல்லை</span></button>
+              </div>
+              <span id="feedback-msg" class="feedback-msg" aria-live="polite"></span>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Common Scams in Tamil Nadu Section -->
+      <section class="awareness-section" aria-labelledby="awareness-heading">
+        <div class="awareness-container">
+          <div class="section-intro">
+            <h2 id="awareness-heading" data-i18n="commonScamsTitle">தமிழ்நாட்டில் அதிகம் நடக்கும் 6 முக்கிய சைபர் மோசடிகள்</h2>
+            <p data-i18n="commonScamsSubtitle">பொதுமக்கள் விழிப்புடன் இருக்க தமிழ்நாடு சைபர் கிரைம் பிரிவு வழிகாட்டுதல்கள்</p>
+          </div>
+
+          <div class="scam-cards-grid">
+            <!-- Card 1 -->
+            <article class="scam-tip-card">
+              <div class="scam-badge-icon" aria-hidden="true">🏦</div>
+              <h3 data-i18n="scam1Title">1. போலி வங்கி KYC முடக்கம்</h3>
+              <p data-i18n="scam1Desc">
+                "உங்கள் கணக்கு இன்று முடக்கப்படும், பான் கார்டு இணைக்க லிங்கை தொடவும்" என வரும் குறுஞ்செய்திகளை நம்பாதீர்கள். வங்கிகள் எஸ்எம்எஸ் வழியே கணக்கை முடக்காது.
+              </p>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="scam-tip-card">
+              <div class="scam-badge-icon" aria-hidden="true">⚡</div>
+              <h3 data-i18n="scam2Title">2. TNEB மின் இணைப்பு துண்டிப்பு</h3>
+              <p data-i18n="scam2Desc">
+                "இன்று இரவு 9:30 மணிக்கு கரண்ட் கட் செய்யப்படும், அதிகாரியை அழையுங்கள்" என்பது மோசடி. மின்வாரியம் தனி நபர் போன் நம்பர் தந்து மிரட்டாது.
+              </p>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="scam-tip-card">
+              <div class="scam-badge-icon" aria-hidden="true">🚨</div>
+              <h3 data-i18n="scam3Title">3. டிஜிட்டல் கைது (Digital Arrest)</h3>
+              <p data-i18n="scam3Desc">
+                சிபிஐ, காவல்துறை அல்லது சுங்கத்துறை என மிரட்டி வீடியோ காலில் வரச்சொல்லி பயமுறுத்துவார்கள். எந்த அரசு அமைப்பும் ஆன்லைனில் கைது செய்யாது.
+              </p>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="scam-tip-card">
+              <div class="scam-badge-icon" aria-hidden="true">💼</div>
+              <h3 data-i18n="scam4Title">4. பகுதி நேர யூடியூப் வேலை</h3>
+              <p data-i18n="scam4Desc">
+                யூடியூப் வீடியோக்களுக்கு லைக் செய்தால் தினசரி ரூ 3000 தருவதாகக் கூறி டெலிகிராமில் இணைத்து, முதலீடு செய்ய வைத்து பணத்தை சுருட்டும் பொறி.
+              </p>
+            </article>
+
+            <!-- Card 5 -->
+            <article class="scam-tip-card">
+              <div class="scam-badge-icon" aria-hidden="true">💸</div>
+              <h3 data-i18n="scam5Title">5. UPI தவறுதலாக பணம் வந்ததாக நாடகம்</h3>
+              <p data-i18n="scam5Desc">
+                "தவறுதலாக பணத்தை அனுப்பிவிட்டேன், திரும்ப அனுப்ப UPI PIN போடுங்கள்" என்பார்கள். நினைவில் கொள்ளுங்கள்: பணம் வர PIN போடவே கூடாது.
+              </p>
+            </article>
+
+            <!-- Card 6 -->
+            <article class="scam-tip-card">
+              <div class="scam-badge-icon" aria-hidden="true">📲</div>
+              <h3 data-i18n="scam6Title">6. AnyDesk & போலி APK பதிவிறக்கம்</h3>
+              <p data-i18n="scam6Desc">
+                வாட்ஸ்அப்பில் அனுப்பப்படும் .apk ஃபைல்கள் மற்றும் AnyDesk செயலிகள் உங்கள் மொபைல் திரையை ஹேக்கர்களுக்கு காட்டி பணத்தை திருடும்.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer" role="contentinfo">
+      <div class="footer-container">
+        <div class="footer-disclaimer">
+          <p>
+            <strong>வழிகாட்டுதல் அறிவிப்பு (Disclaimer):</strong> 
+            <span data-i18n="disclaimerText">
+              இந்த தளம் பொதுமக்களின் இணையப் பாதுகாப்பிற்கான ஒரு விழிப்புணர்வு வழிகாட்டி மட்டுமே; இது நீதிமன்ற அல்லது சட்டப்பூர்வ அதிகாரப்பூர்வ உறுதிப்படுத்தல் அல்ல. ஏதேனும் சந்தேகம் இருப்பின் உடனடியாக 1930 எண்ணை அழைக்கவும்.
+            </span>
+          </p>
+          <p class="privacy-note">
+            🔒 <strong data-i18n="privacyLabel">தனியுரிமை உறுதிமொழி:</strong> 
+            <span data-i18n="privacyText">
+              உங்கள் செய்திகள் சர்வரில் சேமிக்கப்படாது. நீங்கள் விருப்பப்பட்டு கருத்து (Feedback) தெரிவிக்கும் பட்சத்தில் மட்டுமே தனிநபர் விவரங்கள் நீக்கப்பட்டு ஆய்வுக்கு உட்படுத்தப்படும்.
+            </span>
+          </p>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 Cyber Kavasam (சைபர் கவசம்) | Viksit Bharat Hackathon - Citizen Scam Detection Assistant</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

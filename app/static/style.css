@@ -1,0 +1,933 @@
+/* ==========================================================================
+   Cyber Kavasam (சைபர் கவசம்) - Production Stylesheet
+   Calm, trustworthy, highly-accessible design with light/dark modes
+   ========================================================================== */
+
+:root {
+  /* Color Palette - Light Mode */
+  --bg-primary: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-subtle: #f1f5f9;
+  --border-color: #e2e8f0;
+  --border-focus: #2563eb;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+
+  --primary: #1e3a8a;       /* Deep Navy */
+  --primary-hover: #1e40af;
+  --primary-light: #eff6ff;
+
+  --safe-color: #059669;    /* Emerald */
+  --safe-bg: #ecfdf5;
+  --safe-border: #a7f3d0;
+
+  --suspicious-color: #d97706; /* Amber */
+  --suspicious-bg: #fffbeb;
+  --suspicious-border: #fde68a;
+
+  --scam-color: #dc2626;     /* Crimson */
+  --scam-bg: #fef2f2;
+  --scam-border: #fecaca;
+
+  --mark-bg: rgba(239, 68, 68, 0.18);
+  --mark-border: #dc2626;
+  --mark-text: #991b1b;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+
+  --font-family: 'Anek Tamil', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --transition: all 0.2s ease-in-out;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #090d16;
+  --bg-surface: #111827;
+  --bg-surface-elevated: #1f2937;
+  --bg-subtle: #1e293b;
+  --border-color: #334155;
+  --border-focus: #3b82f6;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-inverse: #0f172a;
+
+  --primary: #3b82f6;
+  --primary-hover: #60a5fa;
+  --primary-light: #1e293b;
+
+  --safe-color: #34d399;
+  --safe-bg: rgba(6, 95, 70, 0.25);
+  --safe-border: #065f46;
+
+  --suspicious-color: #fbbf24;
+  --suspicious-bg: rgba(180, 83, 9, 0.25);
+  --suspicious-border: #78350f;
+
+  --scam-color: #f87171;
+  --scam-bg: rgba(185, 28, 28, 0.25);
+  --scam-border: #7f1d1d;
+
+  --mark-bg: rgba(239, 68, 68, 0.35);
+  --mark-border: #f87171;
+  --mark-text: #fecaca;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Accessibility: Visible Focus */
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Header */
+.app-header {
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-group {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.shield-icon {
+  width: 42px;
+  height: 42px;
+  color: var(--primary);
+  background: var(--primary-light);
+  border-radius: var(--radius-md);
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shield-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.brand-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.en-brand {
+  color: var(--primary);
+}
+
+.ta-brand {
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 1.15rem;
+}
+
+.brand-tagline {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Language Switcher */
+.lang-switcher {
+  display: flex;
+  background-color: var(--bg-subtle);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  border: 1px solid var(--border-color);
+}
+
+.lang-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.lang-btn.active {
+  background-color: var(--bg-surface);
+  color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: var(--transition);
+}
+
+[data-theme="light"] .dark-icon { display: none; }
+[data-theme="dark"] .light-icon { display: none; }
+
+/* Main Content Layout */
+.main-content {
+  padding: 2rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .grid-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Cards */
+.scanner-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-md);
+}
+
+.section-header {
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.section-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.section-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 0.35rem;
+}
+
+/* Form Styling */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.label-row label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.char-counter {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+textarea#message-input {
+  width: 100%;
+  padding: 0.875rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-color);
+  background-color: var(--bg-subtle);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  resize: vertical;
+  min-height: 140px;
+  transition: var(--transition);
+}
+
+textarea#message-input:focus {
+  background-color: var(--bg-surface);
+  border-color: var(--border-focus);
+}
+
+/* Example Chips */
+.example-chips-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+.chips-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.chips-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip-btn {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-family: var(--font-family);
+  font-size: 0.8rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.chip-btn:hover {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* Action Buttons */
+.actions-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.btn {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: #ffffff;
+  flex: 2;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: var(--bg-subtle);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  flex: 1;
+}
+
+.btn-secondary:hover {
+  background-color: var(--border-color);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--border-color);
+  color: var(--text-primary);
+  width: 100%;
+  padding: 0.65rem 1rem;
+}
+
+.btn-outline:hover {
+  background-color: var(--bg-subtle);
+  border-color: var(--text-muted);
+}
+
+/* Spinner */
+.btn-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  display: none;
+}
+
+.btn-primary.loading .btn-spinner {
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Report Scam Box */
+.report-box {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}
+
+.report-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.report-icon {
+  font-size: 1.5rem;
+}
+
+.report-header h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.report-header p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.helpline-action {
+  margin-bottom: 0.75rem;
+}
+
+.btn-helpline {
+  background: #dc2626;
+  color: #ffffff;
+  text-decoration: none;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.25);
+  transition: var(--transition);
+}
+
+.btn-helpline:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+}
+
+.official-links {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-around;
+}
+
+.ext-link {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+}
+
+.ext-link:hover {
+  text-decoration: underline;
+}
+
+/* Right Section - Results */
+.empty-state {
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+  color: var(--text-muted);
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.empty-state h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  font-size: 0.9rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Language Badge */
+.badge-lang {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+/* Verdict Banner */
+.verdict-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+  border-width: 1.5px;
+  border-style: solid;
+}
+
+.verdict-banner.verdict-safe {
+  background-color: var(--safe-bg);
+  border-color: var(--safe-border);
+  color: var(--safe-color);
+}
+
+.verdict-banner.verdict-suspicious {
+  background-color: var(--suspicious-bg);
+  border-color: var(--suspicious-border);
+  color: var(--suspicious-color);
+}
+
+.verdict-banner.verdict-scam {
+  background-color: var(--scam-bg);
+  border-color: var(--scam-border);
+  color: var(--scam-color);
+}
+
+.verdict-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.verdict-label-small {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+  display: block;
+}
+
+.verdict-text {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+/* Metrics Grid: Risk Bar & Confidence */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.metric-card {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+}
+
+.metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.65rem;
+}
+
+.metric-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.metric-val {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.metric-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 0.25rem;
+}
+
+/* 3-Zone Risk Meter */
+.risk-bar-track {
+  height: 12px;
+  border-radius: 6px;
+  display: flex;
+  position: relative;
+  overflow: visible;
+  background-color: var(--border-color);
+}
+
+.zone {
+  height: 100%;
+}
+
+.zone-safe {
+  width: 30%;
+  background-color: #10b981;
+  border-radius: 6px 0 0 6px;
+}
+
+.zone-suspicious {
+  width: 25%;
+  background-color: #f59e0b;
+}
+
+.zone-scam {
+  width: 45%;
+  background-color: #ef4444;
+  border-radius: 0 6px 6px 0;
+}
+
+.risk-needle {
+  position: absolute;
+  top: -4px;
+  width: 4px;
+  height: 20px;
+  background-color: #0f172a;
+  border: 1px solid #ffffff;
+  border-radius: 2px;
+  transform: translateX(-50%);
+  transition: left 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .risk-needle {
+  background-color: #ffffff;
+  border-color: #000000;
+}
+
+.gauge-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 0.45rem;
+  font-weight: 600;
+}
+
+/* Highlighted Text Box */
+.card-subtitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.message-highlight-card, .reasons-card, .advice-card {
+  margin-bottom: 1.25rem;
+}
+
+.highlighted-content {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1rem;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Suspicious Highlight Marks (Accessible, Never Raw innerHTML) */
+.highlight-token {
+  background-color: var(--mark-bg);
+  border-bottom: 2px solid var(--mark-border);
+  color: var(--mark-text);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-weight: 600;
+  display: inline;
+}
+
+/* Reasons & Advice Lists */
+.reasons-list, .advice-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.reasons-list li {
+  padding: 0.55rem 0.75rem;
+  background-color: var(--bg-subtle);
+  border-left: 3px solid var(--primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+.advice-list li {
+  padding: 0.55rem 0.75rem;
+  background-color: var(--bg-subtle);
+  border-left: 3px solid var(--safe-color);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.advice-list li::before {
+  content: "✔";
+  color: var(--safe-color);
+  font-weight: bold;
+}
+
+/* Copy Complaint Draft Action */
+.complaint-action-box {
+  margin-bottom: 1.25rem;
+  position: relative;
+}
+
+.copy-toast {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--safe-color);
+  font-weight: 600;
+  text-align: center;
+  margin-top: 0.35rem;
+  min-height: 1.2rem;
+}
+
+/* Feedback Box */
+.feedback-card {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.feedback-prompt {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.feedback-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.fb-btn {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  transition: var(--transition);
+}
+
+.fb-btn:hover {
+  background-color: var(--border-color);
+}
+
+.feedback-msg {
+  width: 100%;
+  font-size: 0.8rem;
+  color: var(--safe-color);
+  font-weight: 600;
+}
+
+/* Awareness Section: 6 Common Scams Grid */
+.awareness-section {
+  margin-top: 3.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.section-intro {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.section-intro h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.section-intro p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+}
+
+.scam-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+.scam-tip-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.scam-tip-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.scam-badge-icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.scam-tip-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+  color: var(--text-primary);
+}
+
+.scam-tip-card p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Footer */
+.app-footer {
+  margin-top: 4rem;
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border-color);
+  padding: 2.5rem 1.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-disclaimer p {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.privacy-note {
+  color: var(--text-secondary);
+}
+
+.footer-bottom {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
