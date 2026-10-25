@@ -1,6 +1,7 @@
 # Cyber Kavasam (சைபர் கவசம்)
 
 > **Citizen Scam Detection & Reporting Assistant for Tamil Nadu**  
+> *Developed by **Meenakshi M** for the Viksit Bharat Hackathon.*  
 > *A bilingual, privacy-first AI & heuristic shield detecting SMS and WhatsApp fraud in Tamil Script, Tanglish, and English.*
 
 [![CI](https://github.com/cyber-kavasam/cyber-kavasam/actions/workflows/ci.yml/badge.svg)](https://github.com/cyber-kavasam/cyber-kavasam/actions/workflows/ci.yml)
@@ -320,4 +321,4 @@ The provided `Dockerfile` uses `python:3.12-slim`, trains the model at build tim
 
 ## 📜 License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** - Copyright (c) 2026 Meenakshi M and Cyber Kavasam Contributors - see the [LICENSE](LICENSE) file for details.

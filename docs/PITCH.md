@@ -1,5 +1,6 @@
 # Cyber Kavasam (சைபர் கவசம்) - Hackathon Pitch Deck & Demo Guide
 
+**Project Lead & Architect**: Meenakshi M  
 **Event**: Viksit Bharat Hackathon  
 **Theme**: Digital Safety & Cyber Fraud Awareness  
 **Problem Statement**: Citizen Scam Detection and Reporting Assistant  
